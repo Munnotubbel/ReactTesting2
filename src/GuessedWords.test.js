@@ -27,6 +27,8 @@ describe("if there are no words guessed", () => {
 
    // puts wrapper on full scope in describe so that it can be used in every test
     let wrapper = setup({ guessedWords: [] });
+
+    // Before each doesn't work here...why ever
     // beforeEach(()=>{
     //     wrapper = setup({ guessedWords: [] });
 
