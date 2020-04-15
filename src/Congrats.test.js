@@ -3,7 +3,7 @@ import {shallow} from "enzyme";
 
 
 
-import {findByTestAttr, checkProps} from "../test/tetUtils";
+import {findByTestAttr, checkProps} from "../test/testUtils";
 import Congrats from "./Congrats";
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
 
-import { findByTestAttr, storeFactory } from "../test/tetUtils";
+import { findByTestAttr, storeFactory } from "../test/testUtils";
 import Input from "./Input";
 
 /**

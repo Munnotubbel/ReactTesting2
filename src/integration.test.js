@@ -1,4 +1,4 @@
-import { storeFactory } from "../test/tetUtils";
+import { storeFactory } from "../test/testUtils";
 import { guessWord } from "./actions";
 
 describe("guessword action dispatcher", () => {
