@@ -9,4 +9,8 @@
 import Enzyme from "enzyme";
 import EnzymeAdapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({adapter: new EnzymeAdapter() });
+Enzyme.configure({
+    adapter: new EnzymeAdapter(),
+    // keeps componentDidMount from running when ever we create an shallowWrapper for App.
+    disableLifecycleMethods: true,
+ });
