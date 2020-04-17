@@ -15,7 +15,7 @@ const setup = (initialState = {}) => {
   //store is running with storeFactory test function
   const store = storeFactory(initialState);
   const wrapper = shallow(<Input store={store} />)
-    .dive();
+    .dive().dive();
     //console.log(wrapper.debug());
   return wrapper;
 };
