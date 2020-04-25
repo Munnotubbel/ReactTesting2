@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { storeFactory } from "../test/testUtils";
-import App,{UnconnectedApp} from "./App";
+import App, { UnconnectedApp } from "./App";
 
 /**
  * @function setup
@@ -19,50 +19,67 @@ const setup = (state = {}) => {
 };
 
 describe("redux properties", () => {
-  test("has access to 'success' state", () => {
-    const success = true;
-    const wrapper = setup({ success });
+  let wrapper;
+  const success = false;
+  const gaveUp = false;
+  const secretWord = "party";
+  const guessedWords = [{ guessedWord: "train", letterMatchCount: 3 }];
+
+  beforeEach(() => {
+    wrapper = setup({
+      success,
+      gaveUp,
+      secretWord,
+      guessedWords,
+    });
+  });
+  test("has access to `success` state", () => {
     const successProp = wrapper.instance().props.success;
     expect(successProp).toBe(success);
   });
-  test("has access to 'secretWord' state", () => {
-    const secretWord = "party";
-    const wrapper = setup({ secretWord });
+
+  test("has access to `gaveUp` state", () => {
+    const gaveUpProp = wrapper.instance().props.gaveUp;
+    expect(gaveUpProp).toBe(gaveUp);
+  });
+
+  test("has access to `secretWord` state", () => {
     const secretWordProp = wrapper.instance().props.secretWord;
     expect(secretWordProp).toBe(secretWord);
   });
-  test("has access to 'guessWords' state", () => {
-    const guessedWords = [{ guessedWord: "train", letterMatchCount: 3 }];
-    const wrapper = setup({ guessedWords });
+  test("has access to `guessedWords` state", () => {
     const guessedWordsProp = wrapper.instance().props.guessedWords;
     expect(guessedWordsProp).toEqual(guessedWords);
   });
-  test("'getSecretWord' action creator is a function on the props", () => {
-    const wrapper = setup();
+  test("`getSecretWord` action creator is a function on the props", () => {
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
   });
+
+  test("`resetGame` action creator is a function on the props", () => {
+    const resetGameProp = wrapper.instance().props.resetGame;
+    expect(resetGameProp).toBeInstanceOf(Function);
+  });
 });
 
-test("'getSecretWord' runs on App mount",()=>{
-    const getSecretWordMock = jest.fn();
+test("`getSecretWord` runs on App mount", () => {
+  const getSecretWordMock = jest.fn();
 
-    const props ={
-        getSecretWord: getSecretWordMock,
-        success: false,
-        guessedWords:[],
-    }
+  const props = {
+    getSecretWord: getSecretWordMock,
+    success: false,
 
-    // set up app component with getSecretWordMock as the getSecretWord prop
-    const wrapper = shallow(<UnconnectedApp {...props} />);
+    gaveUp: false,
 
-    //run lifecycle method
-    wrapper.instance().componentDidMount();
+    secretWord: "party",
+    guessedWords: [],
+  };
 
-    //check to see if mock ran
-    const getSecretWordCallCount=getSecretWordMock.mock.calls.length;
+  const wrapper = shallow(<UnconnectedApp {...props} />);
 
-    expect(getSecretWordCallCount).toBe(1);
+  wrapper.instance().componentDidMount();
 
-    
-})
+  const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+
+  expect(getSecretWordCallCount).toBe(1);
+});
